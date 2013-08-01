@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>three.js css3d - primitives - plane</title>
+		<style>
+			html, body {
+				height: 100%;
+			}
+
+			body {
+				background-color: #000000;
+				margin: 0;
+				font-family: Arial;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="../build/three.min.js"></script>
+		<script src="js/libs/tween.min.js"></script>
+		<script src="js/renderers/CSS3DRenderer.js"></script>
+		<script src="js/CSS3DPrimitives.js"></script>
+
+		<div id="container"></div>
+
+		<script>
+			var camera, scene, renderer;
+			var plane;
+
+			init();
+			animate();
+
+			function init() {
+				camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000 );
+
+				scene = new THREE.Scene();
+
+				renderer = new THREE.CSS3DRenderer();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.domElement.style.position = 'absolute';
+				renderer.domElement.style.top = 0;
+				document.getElementById( 'container' ).appendChild( renderer.domElement );
+
+				plane = new THREE.CSS3D.Primitives.Plane(50,50);
+				plane.element.style.background = "#00ff00";
+				plane.position.set(0,0,-100);
+
+				scene.add(plane);
+
+				//
+
+				window.addEventListener( 'resize', onWindowResize, false );
+			}
+
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+
+			function animate() {
+				requestAnimationFrame( animate );
+				plane.rotation.y += 0.01;
+				TWEEN.update();
+				renderer.render( scene, camera );
+			}
+
+		</script>
+	</body>
+</html>
