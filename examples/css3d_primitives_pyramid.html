@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<title>three.js css3d - primitives - cube</title>
+		<title>three.js css3d - primitives - pyramid</title>
 		<style>
 			html, body {
 				height: 100%;
@@ -16,9 +16,20 @@
 				overflow: hidden;
 			}
 
-			.three-box-container.debug .three-box .side {
-			  background:rgba(0,255,0,0.5);
-			  border:1px solid black;
+			.three-pyramid-container.debug .three-pyramid .side.base {
+		      border-color: transparent transparent transparent rgba(0,255,0,0.5) !important;
+			}
+
+			.three-pyramid-container.debug .three-pyramid .side.front {
+		      border-color: transparent transparent transparent rgba(255,0,0,0.5) !important;
+			}
+
+			.three-pyramid-container.debug .three-pyramid .side.right {
+		      border-color: transparent transparent transparent rgba(0,0,255,0.5) !important;
+			}
+
+			.three-pyramid-container.debug .three-pyramid .side.left {
+		      border-color: transparent transparent transparent rgba(255,255,0,0.5) !important;
 			}
 		</style>
 	</head>
@@ -32,7 +43,7 @@
 
 		<script>
 			var camera, scene, renderer;
-			var cube;
+			var pyramid;
 
 			init();
 			animate();
@@ -40,7 +51,7 @@
 			function init() {
 				camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 5000 );
 
-				camera.position.set(0,0,1000);
+				camera.position.set(0,0,2000);
 
 				scene = new THREE.Scene();
 
@@ -50,10 +61,10 @@
 				renderer.domElement.style.top = 0;
 				document.getElementById( 'container' ).appendChild( renderer.domElement );
 
-				cube = new THREE.CSS3D.Primitives.Cube(250);
-				cube.enableDebug();
-
-				scene.add(cube);
+				pyramid = new THREE.CSS3D.Primitives.Pyramid(500);
+				pyramid.enableDebug();
+				pyramid.position.set(0,0,-1000);
+				scene.add(pyramid);
 
 				//
 
@@ -68,7 +79,10 @@
 
 			function animate() {
 				requestAnimationFrame( animate );
-				cube.rotation.y += 0.01;
+				pyramid.rotation.y += 0.01;
+				pyramid.rotation.x += 0.01;
+				pyramid.rotation.z += 0.01;
+
 				TWEEN.update();
 				renderer.render( scene, camera );
 			}
