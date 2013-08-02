@@ -6,6 +6,7 @@ THREE.CSS3D.Primitives = THREE.CSS3D.Primitives || {};
 */
 THREE.CSS3D.Primitives.Primitive = function(domElement) {
 	THREE.CSS3DObject.call( this, domElement );
+
 }
 
 THREE.CSS3D.Primitives.Primitive.prototype = Object.create( THREE.CSS3DObject.prototype );
